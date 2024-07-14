@@ -23,6 +23,11 @@ export class InterestController {
     return this.interestService.create(createInterestDto);
   }
 
+  @Post('seed')
+  async seed() {
+    return this.interestService.seedDefaultInterests();
+  }
+
   @Get()
   async findAll(): Promise<Interest[]> {
     return this.interestService.findAll();
