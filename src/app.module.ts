@@ -4,6 +4,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
+import { InterestsModule } from './interests/interests.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { UsersModule } from './users/users.module';
         uri: configService.get<string>('DB_URL'),
       }),
     }),
+    InterestsModule,
+    MessagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
