@@ -9,18 +9,9 @@ export const UserSchema = new Schema({
   gender: { type: String, enum: Object.values(Gender), required: true },
   country: { type: String, required: true },
   city: { type: String, required: true },
+  gyms: [{ type: String }],
   gymRelatedInterests: [{ type: Schema.Types.ObjectId, ref: 'Interest' }],
   nonGymRelatedInterests: [{ type: Schema.Types.ObjectId, ref: 'Interest' }],
-  matches: [
-    {
-      user: { type: Schema.Types.ObjectId, ref: 'User' },
-      status: {
-        type: String,
-        enum: ['PENDING', 'ACCEPTED', 'REJECTED'],
-        default: 'PENDING',
-      },
-    },
-  ],
   pictures: [
     {
       _id: { type: Schema.Types.ObjectId },

@@ -8,6 +8,7 @@ import {
   Param,
   Put,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { InterestService } from './interest.service';
 import { Interest } from '../schemas/interest.schema';
@@ -31,6 +32,13 @@ export class InterestController {
   @Get()
   async findAll(): Promise<Interest[]> {
     return this.interestService.findAll();
+  }
+
+  @Get('type')
+  async filterByGymRelated(
+    @Query('gymRelated') gymRelated: boolean,
+  ): Promise<Interest[]> {
+    return this.interestService.filterByGymRelated(gymRelated);
   }
 
   @Get(':id')

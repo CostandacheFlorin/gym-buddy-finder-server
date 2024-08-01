@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { InterestsModule } from './interests/interests.module';
 import { MessagesModule } from './messages/messages.module';
+import { MatchModule } from './match/match.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { MessagesModule } from './messages/messages.module';
     }),
     InterestsModule,
     MessagesModule,
+    MatchModule,
   ],
   controllers: [AppController],
   providers: [AppService],

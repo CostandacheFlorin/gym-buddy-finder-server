@@ -1,4 +1,10 @@
-import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsArray,
+  IsMongoId,
+} from 'class-validator';
 
 export class UpdateUserDto {
   @IsOptional()
@@ -20,4 +26,14 @@ export class UpdateUserDto {
   @IsString()
   @IsNotEmpty()
   city: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsMongoId({ each: true })
+  gymRelatedInterests: string[];
+
+  @IsOptional()
+  @IsArray()
+  @IsMongoId({ each: true })
+  nonGymRelatedInterests: string[];
 }

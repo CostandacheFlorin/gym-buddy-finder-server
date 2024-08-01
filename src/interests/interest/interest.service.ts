@@ -25,6 +25,10 @@ export class InterestService {
     return this.interestModel.findById(id).exec();
   }
 
+  async filterByGymRelated(gymRelated: boolean): Promise<Interest[]> {
+    return this.interestModel.find({ gymRelated });
+  }
+
   async update(
     id: string,
     updateInterestDto: Partial<Interest>,

@@ -1,8 +1,14 @@
-import { Document } from 'mongoose';
+import { Document, Schema } from 'mongoose';
+import { Gender } from 'types/user';
 
 export interface User extends Document {
-  readonly first_name: string;
-  readonly last_name: string;
-  readonly birth_date: Date;
-  readonly email: string;
+  first_name: string;
+  last_name: string;
+  birth_date: Date;
+  email: string;
+  gender: Gender;
+  gyms: string[];
+  gymRelatedInterests: Schema.Types.ObjectId[];
+  nonGymRelatedInterests: Schema.Types.ObjectId[];
+  pictures: [{ _id: Schema.Types.ObjectId; url: string }];
 }
