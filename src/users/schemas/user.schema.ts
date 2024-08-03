@@ -7,6 +7,7 @@ export const UserSchema = new Schema({
   birth_date: { type: Date, required: true },
   email: { type: String, required: true, unique: true },
   gender: { type: String, enum: Object.values(Gender), required: true },
+  description: { type: String },
   country: { type: String, required: true },
   city: { type: String, required: true },
   gyms: [{ type: String }],

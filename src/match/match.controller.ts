@@ -3,6 +3,7 @@ import { Controller, Post, Req, Body } from '@nestjs/common';
 import { MatchService } from './match.service';
 import { Request } from 'express';
 import { MatchStatus } from 'types/match';
+import { ErrorResponse } from 'utils/errorResponse';
 
 @Controller('matches')
 export class MatchController {
@@ -14,8 +15,16 @@ export class MatchController {
     @Body('status') status: MatchStatus,
     @Req() req: Request,
   ) {
-    // @ts-expect-error asd
-    const user1Id = req.user.id; // Assuming you have a user object in your request
-    return this.matchService.createOrUpdateMatch(user1Id, userId, status);
+    try {
+      // @ts-expect-error asd
+      const user1Id = req.user.id;
+      return await this.matchService.createOrUpdateMatch(
+        user1Id,
+        userId,
+        status,
+      );
+    } catch (e) {
+      return ErrorResponse(e);
+    }
   }
 }

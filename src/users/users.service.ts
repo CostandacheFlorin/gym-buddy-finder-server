@@ -16,7 +16,7 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const newUser = new this.userModel(createUserDto);
-    return newUser.save();
+    return await newUser.save();
   }
 
   async findAll(): Promise<User[]> {
@@ -88,26 +88,40 @@ export class UsersService {
     const allUserIdsFromMatching = [
       ...initiatedMatchUserIds,
       ...rejectedUserIds,
+      ...alreadyMatchedUserIds,
     ];
 
-    const usersBasedOnMatching = await this.userModel
+    // Fetch users that want to match
+    const usersThatWantToMatch = await this.userModel
       .find({
-        _id: {
-          $nin: [...rejectedUserIds, ...alreadyMatchedUserIds],
-          $in: initiatedMatchUserIds,
-        },
+        _id: { $in: initiatedMatchUserIds },
       })
-      .skip(skip)
+      .populate('gymRelatedInterests')
+      .populate('nonGymRelatedInterests')
+      .skip(skip) // Apply pagination
       .limit(limit)
       .exec();
 
-    const restOfUsers = await this.userModel.find({
-      _id: {
-        $ne: user_id,
-        $nin: allUserIdsFromMatching,
-      },
-      gender,
-    });
-    return [...usersBasedOnMatching, ...restOfUsers];
+    // Calculate the number of users to skip in the remaining list
+    const restSkip = Math.max(skip - usersThatWantToMatch.length, 0);
+    const restLimit = Math.max(limit - usersThatWantToMatch.length, 0);
+
+    // Fetch the rest of the users
+    const restOfUsers = await this.userModel
+      .find({
+        _id: {
+          $ne: user_id,
+          $nin: allUserIdsFromMatching,
+        },
+        gender,
+      })
+      .populate('gymRelatedInterests')
+      .populate('nonGymRelatedInterests')
+      .skip(restSkip)
+      .limit(restLimit)
+      .exec();
+
+    // Combine the lists
+    return [...usersThatWantToMatch, ...restOfUsers];
   }
 }

@@ -6,6 +6,7 @@ export interface User extends Document {
   last_name: string;
   birth_date: Date;
   email: string;
+  description: string;
   gender: Gender;
   gyms: string[];
   gymRelatedInterests: Schema.Types.ObjectId[];

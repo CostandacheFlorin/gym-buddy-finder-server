@@ -11,6 +11,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto/update-user.dto';
+import { ErrorResponse } from 'utils/errorResponse';
 
 @Controller('users')
 export class UsersController {
@@ -22,31 +23,55 @@ export class UsersController {
     @Query('limit') limit: number = 10,
     @Query('user_id') userId: string,
   ) {
-    return this.usersService.findUsersWithMatchersFirst(userId, skip, limit);
+    return await this.usersService.findUsersWithMatchersFirst(
+      userId,
+      skip,
+      limit,
+    );
   }
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto) {
+    try {
+      return await this.usersService.create(createUserDto);
+    } catch (e) {
+      return ErrorResponse(e);
+    }
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  async findAll() {
+    try {
+      return await this.usersService.findAll();
+    } catch (e) {
+      return ErrorResponse(e);
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    try {
+      return await this.usersService.findOne(id);
+    } catch (e) {
+      return ErrorResponse(e);
+    }
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    try {
+      return await this.usersService.update(id, updateUserDto);
+    } catch (e) {
+      return ErrorResponse(e);
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+  async remove(@Param('id') id: string) {
+    try {
+      return await this.usersService.remove(id);
+    } catch (e) {
+      return ErrorResponse(e);
+    }
   }
 }

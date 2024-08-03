@@ -1,5 +1,3 @@
-// src/interests/interest.controller.ts
-
 import {
   Controller,
   Get,
@@ -12,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { InterestService } from './interest.service';
 import { Interest } from '../schemas/interest.schema';
+import { ErrorResponse } from 'utils/errorResponse';
 
 @Controller('interests')
 export class InterestController {
@@ -21,29 +20,49 @@ export class InterestController {
   async create(
     @Body() createInterestDto: Partial<Interest>,
   ): Promise<Interest> {
-    return this.interestService.create(createInterestDto);
+    try {
+      return await this.interestService.create(createInterestDto);
+    } catch (e) {
+      return ErrorResponse(e);
+    }
   }
 
   @Post('seed')
   async seed() {
-    return this.interestService.seedDefaultInterests();
+    try {
+      return await this.interestService.seedDefaultInterests();
+    } catch (e) {
+      return ErrorResponse(e);
+    }
   }
 
   @Get()
   async findAll(): Promise<Interest[]> {
-    return this.interestService.findAll();
+    try {
+      return await this.interestService.findAll();
+    } catch (e) {
+      return ErrorResponse(e);
+    }
   }
 
   @Get('type')
   async filterByGymRelated(
     @Query('gymRelated') gymRelated: boolean,
   ): Promise<Interest[]> {
-    return this.interestService.filterByGymRelated(gymRelated);
+    try {
+      return await this.interestService.filterByGymRelated(gymRelated);
+    } catch (e) {
+      return ErrorResponse(e);
+    }
   }
 
   @Get(':id')
   async findById(@Param('id') id: string): Promise<Interest> {
-    return this.interestService.findById(id);
+    try {
+      return await this.interestService.findById(id);
+    } catch (e) {
+      return ErrorResponse(e);
+    }
   }
 
   @Put(':id')
@@ -51,11 +70,19 @@ export class InterestController {
     @Param('id') id: string,
     @Body() updateInterestDto: Partial<Interest>,
   ): Promise<Interest> {
-    return this.interestService.update(id, updateInterestDto);
+    try {
+      return await this.interestService.update(id, updateInterestDto);
+    } catch (e) {
+      return ErrorResponse(e);
+    }
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<Interest> {
-    return this.interestService.delete(id);
+    try {
+      return await this.interestService.delete(id);
+    } catch (e) {
+      return ErrorResponse(e);
+    }
   }
 }
