@@ -48,6 +48,15 @@ export class UsersController {
     }
   }
 
+  @Get('/me')
+  async getMe() {
+    try {
+      return await this.usersService.findOne('66ab371036d28d0ef8e4094c');
+    } catch (e) {
+      return ErrorResponse(e);
+    }
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {

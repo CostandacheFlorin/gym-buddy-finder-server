@@ -67,11 +67,10 @@ export class UsersService {
     const user = await this.findOne(user_id);
 
     const { gender } = user;
+
+    // TODO: to test after auth changes
     const initiatedMatchUserIds =
-      await this.matchService.listUserIdsByMatchStatusForUserId(
-        user_id,
-        MatchStatus.PENDING,
-      );
+      await this.matchService.listMatchingUserIdsForUserId(user_id);
 
     const rejectedUserIds =
       await this.matchService.listUserIdsByMatchStatusForUserId(
@@ -92,13 +91,15 @@ export class UsersService {
     ];
 
     // Fetch users that want to match
+
+    // TODO: need to filter if this user is the one that matched
     const usersThatWantToMatch = await this.userModel
       .find({
         _id: { $in: initiatedMatchUserIds },
       })
       .populate('gymRelatedInterests')
       .populate('nonGymRelatedInterests')
-      .skip(skip) // Apply pagination
+      .skip(skip)
       .limit(limit)
       .exec();
 

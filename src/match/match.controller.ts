@@ -1,7 +1,6 @@
 // src/match/match.controller.ts
-import { Controller, Post, Req, Body } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { MatchService } from './match.service';
-import { Request } from 'express';
 import { MatchStatus } from 'types/match';
 import { ErrorResponse } from 'utils/errorResponse';
 
@@ -9,18 +8,19 @@ import { ErrorResponse } from 'utils/errorResponse';
 export class MatchController {
   constructor(private readonly matchService: MatchService) {}
 
-  @Post('create')
-  async createMatch(
-    @Body('userId') userId: string,
+  @Post('match')
+  async startMatching(
+    @Body('target_user_id') target_user_id: string,
     @Body('status') status: MatchStatus,
-    @Req() req: Request,
   ) {
     try {
-      // @ts-expect-error asd
-      const user1Id = req.user.id;
+      // const user1Id = req.user.id;
+      // const user_id = '66ae45220b2f82241888d309';
+      const user_id = '66ae3728c9e8cc32a37869e1';
+
       return await this.matchService.createOrUpdateMatch(
-        user1Id,
-        userId,
+        user_id,
+        target_user_id,
         status,
       );
     } catch (e) {
