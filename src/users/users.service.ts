@@ -1,9 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { User } from './interfaces/user.interface';
-import { CreateUserDto } from './dto/create-user.dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto/update-user.dto';
+import { UpdateUserDto } from './dto/update-user/update-user.dto';
 import { MatchService } from 'src/match/match.service';
 import { MatchStatus } from 'types/match';
 
@@ -14,8 +13,8 @@ export class UsersService {
     private readonly matchService: MatchService,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const newUser = new this.userModel(createUserDto);
+  async create(data: Partial<User>): Promise<User> {
+    const newUser = new this.userModel(data);
     return await newUser.save();
   }
 
@@ -27,18 +26,26 @@ export class UsersService {
       .exec();
   }
 
-  async findOne(id: string): Promise<User> {
+  async findOneById(id: string): Promise<User> {
     const user = await this.userModel
       .findById(id)
       .populate('gymRelatedInterests')
       .populate('nonGymRelatedInterests')
       .exec();
-    if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
-    }
+
     return user;
   }
 
+  async findOne(query: FilterQuery<User>): Promise<User> {
+    const user = await this.userModel
+      .findOne(query)
+      .populate('gymRelatedInterests')
+      .populate('nonGymRelatedInterests')
+      .exec();
+
+    console.log(user);
+    return user;
+  }
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     const updatedUser = await this.userModel
       .findByIdAndUpdate(id, updateUserDto, { new: true })
@@ -64,8 +71,10 @@ export class UsersService {
     skip: number = 0,
     limit: number = 10,
   ): Promise<User[]> {
-    const user = await this.findOne(user_id);
-
+    const user = await this.findOneById(user_id);
+    if (!user) {
+      throw new NotFoundException(`User with ID ${user_id} not found`);
+    }
     const { gender } = user;
 
     // TODO: to test after auth changes

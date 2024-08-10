@@ -1,25 +1,23 @@
-// src/match/match.controller.ts
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Request } from '@nestjs/common';
 import { MatchService } from './match.service';
 import { MatchStatus } from 'types/match';
 import { ErrorResponse } from 'utils/errorResponse';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('matches')
 export class MatchController {
   constructor(private readonly matchService: MatchService) {}
 
+  @UseGuards(AuthGuard)
   @Post('match')
   async startMatching(
     @Body('target_user_id') target_user_id: string,
     @Body('status') status: MatchStatus,
+    @Request() req,
   ) {
     try {
-      // const user1Id = req.user.id;
-      // const user_id = '66ae45220b2f82241888d309';
-      const user_id = '66ae3728c9e8cc32a37869e1';
-
       return await this.matchService.createOrUpdateMatch(
-        user_id,
+        req.user.id,
         target_user_id,
         status,
       );

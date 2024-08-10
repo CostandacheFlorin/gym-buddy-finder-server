@@ -1,44 +1,39 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Patch,
   Param,
   Delete,
   Query,
+  NotFoundException,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto/update-user.dto';
+import { UpdateUserDto } from './dto/update-user/update-user.dto';
 import { ErrorResponse } from 'utils/errorResponse';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @UseGuards(AuthGuard)
   @Get('/matching-list')
   async listUsersToMatch(
+    @Request() req,
     @Query('skip') skip: number = 1,
     @Query('limit') limit: number = 10,
-    @Query('user_id') userId: string,
   ) {
     return await this.usersService.findUsersWithMatchersFirst(
-      userId,
+      req.user.id,
       skip,
       limit,
     );
   }
 
-  @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
-    try {
-      return await this.usersService.create(createUserDto);
-    } catch (e) {
-      return ErrorResponse(e);
-    }
-  }
-
+  @UseGuards(AuthGuard)
   @Get()
   async findAll() {
     try {
@@ -48,24 +43,35 @@ export class UsersController {
     }
   }
 
+  @UseGuards(AuthGuard)
   @Get('/me')
-  async getMe() {
+  async getMe(@Request() req) {
     try {
-      return await this.usersService.findOne('66ab371036d28d0ef8e4094c');
+      const user = await this.usersService.findOneById(req.user.id);
+      if (!user) {
+        throw new NotFoundException(`User with ID  not found`);
+      }
+      return user;
     } catch (e) {
       return ErrorResponse(e);
     }
   }
 
+  @UseGuards(AuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
-      return await this.usersService.findOne(id);
+      const user = await this.usersService.findOneById(id);
+      if (!user) {
+        throw new NotFoundException(`User with ID ${id} not found`);
+      }
+      return user;
     } catch (e) {
       return ErrorResponse(e);
     }
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     try {
@@ -75,6 +81,7 @@ export class UsersController {
     }
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {

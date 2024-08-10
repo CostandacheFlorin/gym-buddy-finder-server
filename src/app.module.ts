@@ -7,11 +7,14 @@ import { UsersModule } from './users/users.module';
 import { InterestsModule } from './interests/interests.module';
 import { MessagesModule } from './messages/messages.module';
 import { MatchModule } from './match/match.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     UsersModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -22,6 +25,7 @@ import { MatchModule } from './match/match.module';
     InterestsModule,
     MessagesModule,
     MatchModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
