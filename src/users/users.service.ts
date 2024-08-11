@@ -77,7 +77,6 @@ export class UsersService {
     }
     const { gender } = user;
 
-    // TODO: to test after auth changes
     const initiatedMatchUserIds =
       await this.matchService.listMatchingUserIdsForUserId(user_id);
 
@@ -93,15 +92,19 @@ export class UsersService {
         MatchStatus.MATCHED,
       );
 
+    const pendingMatchingUserIds =
+      await this.matchService.listUserIdsByMatchStatusForUserId(
+        user_id,
+        MatchStatus.PENDING,
+      );
+
     const allUserIdsFromMatching = [
       ...initiatedMatchUserIds,
       ...rejectedUserIds,
       ...alreadyMatchedUserIds,
+      ...pendingMatchingUserIds,
     ];
 
-    // Fetch users that want to match
-
-    // TODO: need to filter if this user is the one that matched
     const usersThatWantToMatch = await this.userModel
       .find({
         _id: { $in: initiatedMatchUserIds },

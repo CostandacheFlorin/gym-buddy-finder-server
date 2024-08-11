@@ -12,6 +12,7 @@ export const UserSchema = new Schema({
   city: { type: String },
   hashed_password: { type: String },
   gyms: [{ type: String }],
+  onboarding_completed: { type: Boolean, default: false },
   gymRelatedInterests: [{ type: Schema.Types.ObjectId, ref: 'Interest' }],
   nonGymRelatedInterests: [{ type: Schema.Types.ObjectId, ref: 'Interest' }],
   pictures: [

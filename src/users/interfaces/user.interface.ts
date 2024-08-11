@@ -10,6 +10,7 @@ export interface User extends Document {
   gender: Gender;
   gyms: string[];
   hashed_password?: string;
+  onboarding_completed?: boolean;
   gymRelatedInterests: Schema.Types.ObjectId[];
   nonGymRelatedInterests: Schema.Types.ObjectId[];
   pictures: [{ _id: Schema.Types.ObjectId; url: string }];
