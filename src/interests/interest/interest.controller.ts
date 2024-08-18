@@ -7,15 +7,18 @@ import {
   Put,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { InterestService } from './interest.service';
 import { Interest } from '../schemas/interest.schema';
 import { ErrorResponse } from 'utils/errorResponse';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('interests')
 export class InterestController {
   constructor(private readonly interestService: InterestService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   async create(
     @Body() createInterestDto: Partial<Interest>,
@@ -36,6 +39,7 @@ export class InterestController {
     }
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   async findAll(): Promise<Interest[]> {
     try {
@@ -45,6 +49,7 @@ export class InterestController {
     }
   }
 
+  @UseGuards(AuthGuard)
   @Get('type')
   async filterByGymRelated(
     @Query('gymRelated') gymRelated: boolean,
@@ -56,6 +61,7 @@ export class InterestController {
     }
   }
 
+  @UseGuards(AuthGuard)
   @Get(':id')
   async findById(@Param('id') id: string): Promise<Interest> {
     try {
@@ -65,6 +71,7 @@ export class InterestController {
     }
   }
 
+  @UseGuards(AuthGuard)
   @Put(':id')
   async update(
     @Param('id') id: string,
@@ -77,6 +84,7 @@ export class InterestController {
     }
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<Interest> {
     try {
