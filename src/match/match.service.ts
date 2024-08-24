@@ -115,4 +115,30 @@ export class MatchService {
 
     return userIds;
   }
+
+  async listMatchesForUserId(userId: string): Promise<Match[]> {
+    return this.matchModel
+      .find({
+        $or: [
+          {
+            user1: new Types.ObjectId(userId),
+            user2Status: MatchStatus.MATCHED,
+            status: MatchStatus.MATCHED,
+          },
+          {
+            user2: new Types.ObjectId(userId),
+            user1Status: MatchStatus.MATCHED,
+            status: MatchStatus.MATCHED,
+          },
+        ],
+      })
+      .populate({
+        path: 'user1',
+        select: '-hashed_password', // Exclude the password field from user1
+      })
+      .populate({
+        path: 'user2',
+        select: '-hashed_password', // Exclude the password field from user2
+      });
+  }
 }
