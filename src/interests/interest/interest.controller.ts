@@ -49,7 +49,6 @@ export class InterestController {
     }
   }
 
-  @UseGuards(AuthGuard)
   @Get('type')
   async filterByGymRelated(
     @Query('gymRelated') gymRelated: boolean,
