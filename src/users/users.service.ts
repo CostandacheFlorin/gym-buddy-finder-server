@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { FilterQuery, Model } from 'mongoose';
+import { FilterQuery, Model, Types } from 'mongoose';
 import { User } from './interfaces/user.interface';
 import { UpdateUserDto } from './dto/update-user/update-user.dto';
 import { MatchService } from 'src/match/match.service';
 import { MatchStatus } from 'types/match';
+import { Picture } from 'types/user';
 
 @Injectable()
 export class UsersService {
@@ -46,6 +47,17 @@ export class UsersService {
     return user;
   }
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    if (updateUserDto?.pictures) {
+      const picturesCopy = updateUserDto.pictures;
+      updateUserDto.pictures = picturesCopy.map((picture: Picture) => {
+        if (picture._id) {
+          return picture;
+        }
+        const pictureId = new Types.ObjectId();
+
+        return { _id: pictureId.toString(), url: picture.url };
+      });
+    }
     const updatedUser = await this.userModel
       .findByIdAndUpdate(id, updateUserDto, { new: true })
       .exec();

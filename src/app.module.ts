@@ -8,6 +8,7 @@ import { InterestsModule } from './interests/interests.module';
 import { MessagesModule } from './messages/messages.module';
 import { MatchModule } from './match/match.module';
 import { AuthModule } from './auth/auth.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AuthModule } from './auth/auth.module';
     MessagesModule,
     MatchModule,
     AuthModule,
+    CloudinaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

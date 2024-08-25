@@ -5,6 +5,7 @@ import {
   IsArray,
   IsMongoId,
 } from 'class-validator';
+import { Picture } from 'types/user';
 
 export class UpdateUserDto {
   @IsOptional()
@@ -36,4 +37,9 @@ export class UpdateUserDto {
   @IsArray()
   @IsMongoId({ each: true })
   nonGymRelatedInterests: string[];
+
+  @IsOptional()
+  @IsArray()
+  @IsNotEmpty()
+  pictures: Picture[];
 }
