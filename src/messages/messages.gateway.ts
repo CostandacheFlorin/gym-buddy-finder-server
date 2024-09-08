@@ -29,6 +29,11 @@ export class MessagesGateway {
   ): Promise<void> {
     const roomName = generateRoomName(message.sender, message.receiver);
     this.server.to(roomName).emit('receiveMessage', { message });
+
+    // Update latest chats for both users
+
+    this.server.to(message.sender).emit('updateLatestChats', message);
+    this.server.to(message.receiver).emit('updateLatestChats', message);
   }
 
   handleConnection(@ConnectedSocket() client: Socket) {
@@ -38,9 +43,8 @@ export class MessagesGateway {
     const roomName = generateRoomName(loggedInUser, otherUser);
 
     client.join(roomName);
+    client.join(loggedInUser); // Also join user's own room for latestChats updates
   }
 
-  handleDisconnect(@ConnectedSocket() client: Socket) {
-    console.log(`Client disconnected: ${client.id}`);
-  }
+  handleDisconnect(@ConnectedSocket() client: Socket) {}
 }
