@@ -30,7 +30,7 @@ export class AuthController {
         httpOnly: true,
         secure: true,
         sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 1000, // 1 day
+        maxAge: 24 * 60 * 60 * 1000 * 14, // 14 days
       });
 
       return res.json({ message: 'Login successful' });
@@ -44,6 +44,23 @@ export class AuthController {
   async register(@Body() payload: RegisterDto) {
     try {
       return this.authService.register(payload);
+    } catch (e) {
+      return ErrorResponse(e);
+    }
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('logout')
+  async logout(@Res() res: Response) {
+    try {
+      res.clearCookie('authToken', {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict',
+        path: '/',
+      });
+
+      return res.json({ message: 'Logout successful' });
     } catch (e) {
       return ErrorResponse(e);
     }
