@@ -98,10 +98,12 @@ export class MatchService {
         {
           user1: new Types.ObjectId(userId),
           user2Status: MatchStatus.MATCHED,
+          status: MatchStatus.PENDING,
         },
         {
           user2: new Types.ObjectId(userId),
           user1Status: MatchStatus.MATCHED,
+          status: MatchStatus.PENDING,
         },
       ],
     });
