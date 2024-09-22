@@ -60,6 +60,7 @@ export class UsersService {
     }
     const updatedUser = await this.userModel
       .findByIdAndUpdate(id, updateUserDto, { new: true })
+      .select('-hashed_password')
       .exec();
     if (!updatedUser) {
       throw new NotFoundException(`User with ID ${id} not found`);
