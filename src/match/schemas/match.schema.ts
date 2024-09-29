@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { MatchStatus } from 'types/match';
+import { MatchStatus } from 'src/types/match';
 
 export const MatchSchema = new Schema(
   {

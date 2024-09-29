@@ -5,7 +5,7 @@ import {
   IsNotEmpty,
   IsEnum,
 } from 'class-validator';
-import { Gender } from 'types/user';
+import { Gender } from 'src/types/user';
 
 export class CreateUserDto {
   @IsString()

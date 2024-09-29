@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Match } from './interfaces/match.interface';
-import { MatchStatus } from 'types/match';
+import { MatchStatus } from 'src/types/match';
 
 @Injectable()
 export class MatchService {

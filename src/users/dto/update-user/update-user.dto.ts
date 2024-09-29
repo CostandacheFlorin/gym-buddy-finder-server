@@ -5,7 +5,7 @@ import {
   IsArray,
   IsMongoId,
 } from 'class-validator';
-import { Picture } from 'types/user';
+import { Picture } from 'src/types/user';
 
 export class UpdateUserDto {
   @IsOptional()

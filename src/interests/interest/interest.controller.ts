@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { InterestService } from './interest.service';
 import { Interest } from '../schemas/interest.schema';
-import { ErrorResponse } from 'utils/errorResponse';
+import { ErrorResponse } from 'src/utils/errorResponse';
 import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('interests')

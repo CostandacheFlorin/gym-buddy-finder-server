@@ -9,7 +9,7 @@ import { Message } from './interfaces/message.interface';
 import { CreateMessageDto } from './dto/create-message/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message/update-message.dto';
 import { MatchService } from 'src/match/match.service';
-import { ErrorResponse } from 'utils/errorResponse';
+import { ErrorResponse } from 'src/utils/errorResponse';
 import { User } from 'src/users/interfaces/user.interface';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Controller, Post, Body, UseGuards, Request } from '@nestjs/common';
 import { MatchService } from './match.service';
-import { MatchStatus } from 'types/match';
-import { ErrorResponse } from 'utils/errorResponse';
+import { MatchStatus } from 'src/types/match';
+import { ErrorResponse } from 'src/utils/errorResponse';
 import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('matches')

@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CloudinaryService } from './cloudinary.service';
-import { ErrorResponse } from 'utils/errorResponse';
+import { ErrorResponse } from 'src/utils/errorResponse';
 
 @Controller('files')
 export class CloudinaryController {

@@ -7,8 +7,8 @@ import { UsersService } from 'src/users/users.service';
 import { RegisterDto } from './dto/register.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ErrorResponse } from 'utils/errorResponse';
-import hashPassword from 'utils/hashPassword';
+import { ErrorResponse } from 'src/utils/errorResponse';
+import hashPassword from 'src/utils/hashPassword';
 
 @Injectable()
 export class AuthService {

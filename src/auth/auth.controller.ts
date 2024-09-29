@@ -9,7 +9,7 @@ import {
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { RegisterDto } from './dto/register.dto';
-import { ErrorResponse } from 'utils/errorResponse';
+import { ErrorResponse } from 'src/utils/errorResponse';
 import { Response } from 'express';
 
 @Controller('auth')
