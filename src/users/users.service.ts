@@ -4,7 +4,7 @@ import { FilterQuery, Model, Types } from 'mongoose';
 import { User } from './interfaces/user.interface';
 import { UpdateUserDto } from './dto/update-user/update-user.dto';
 import { MatchService } from 'src/match/match.service';
-import { MatchStatus } from 'src/types/match';
+import { MatchStatus } from '../types/match';
 import { Picture } from 'src/types/user';
 
 @Injectable()

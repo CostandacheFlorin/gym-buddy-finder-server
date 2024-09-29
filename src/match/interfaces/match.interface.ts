@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { MatchStatus } from 'src/types/match';
+import { MatchStatus } from '../../types/match';
 
 export interface Match extends Document {
   user1: string;
