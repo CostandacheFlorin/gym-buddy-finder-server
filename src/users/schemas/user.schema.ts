@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { Gender } from 'src/types/user';
+import { Gender } from '../../types/user';
 
 export const UserSchema = new Schema({
   first_name: { type: String, required: true },

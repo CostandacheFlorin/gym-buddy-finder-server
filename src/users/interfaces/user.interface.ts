@@ -1,5 +1,5 @@
 import { Document, Schema } from 'mongoose';
-import { Gender } from 'src/types/user';
+import { Gender } from '../../types/user';
 
 export interface User extends Document {
   first_name: string;

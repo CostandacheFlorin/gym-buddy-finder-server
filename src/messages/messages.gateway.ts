@@ -7,7 +7,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { MessagesService } from './messages.service';
-import generateRoomName from 'src/utils/generateRoomName';
+import generateRoomName from '../utils/generateRoomName';
 
 @WebSocketGateway({
   cors: {

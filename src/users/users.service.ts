@@ -3,9 +3,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, Types } from 'mongoose';
 import { User } from './interfaces/user.interface';
 import { UpdateUserDto } from './dto/update-user/update-user.dto';
-import { MatchService } from 'src/match/match.service';
 import { MatchStatus } from '../types/match';
-import { Picture } from 'src/types/user';
+import { MatchService } from '../match/match.service';
+import { Picture } from '../types/user';
 
 @Injectable()
 export class UsersService {

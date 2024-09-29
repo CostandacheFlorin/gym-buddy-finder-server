@@ -5,7 +5,7 @@ import {
   MinLength,
   Matches,
 } from 'class-validator';
-import { Gender } from 'src/types/user';
+import { Gender } from '../../types/user';
 
 export class RegisterDto {
   @IsString()

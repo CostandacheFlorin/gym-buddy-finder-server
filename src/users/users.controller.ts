@@ -12,8 +12,8 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user/update-user.dto';
-import { ErrorResponse } from 'src/utils/errorResponse';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
+import { ErrorResponse } from '../utils/errorResponse';
 
 @Controller('users')
 export class UsersController {

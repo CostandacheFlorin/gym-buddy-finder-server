@@ -4,7 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { InterestService } from './interest/interest.service';
 import { InterestController } from './interest/interest.controller';
 import { InterestSchema } from './schemas/interest.schema';
-import { AuthModule } from 'src/auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [

@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MatchController } from './match.controller';
 import { MatchService } from './match.service';
 import { MatchSchema } from './schemas/match.schema';
-import { AuthModule } from 'src/auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [

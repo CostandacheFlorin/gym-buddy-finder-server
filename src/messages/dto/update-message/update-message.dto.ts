@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, IsEnum } from 'class-validator';
-import { MessageStatus } from 'src/messages/types';
+import { MessageStatus } from '../../types';
 
 export class UpdateMessageDto {
   @IsString()

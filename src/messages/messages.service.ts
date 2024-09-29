@@ -8,9 +8,9 @@ import { Model, Types } from 'mongoose';
 import { Message } from './interfaces/message.interface';
 import { CreateMessageDto } from './dto/create-message/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message/update-message.dto';
-import { MatchService } from 'src/match/match.service';
-import { ErrorResponse } from 'src/utils/errorResponse';
-import { User } from 'src/users/interfaces/user.interface';
+import { MatchService } from '../match/match.service';
+import { User } from '../users/interfaces/user.interface';
+import { ErrorResponse } from '../utils/errorResponse';
 
 @Injectable()
 export class MessagesService {

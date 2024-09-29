@@ -1,14 +1,13 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-
-import { User } from 'src/users/interfaces/user.interface';
-import { UsersService } from 'src/users/users.service';
-import { RegisterDto } from './dto/register.dto';
+import { UsersService } from '../users/users.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ErrorResponse } from 'src/utils/errorResponse';
-import hashPassword from 'src/utils/hashPassword';
+import { User } from '../users/interfaces/user.interface';
+import { ErrorResponse } from '../utils/errorResponse';
+import { RegisterDto } from './dto/register.dto';
+import hashPassword from '../utils/hashPassword';
 
 @Injectable()
 export class AuthService {
