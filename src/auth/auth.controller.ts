@@ -30,8 +30,9 @@ export class AuthController {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
-        domain: '.vercel.app',
-        maxAge: 24 * 60 * 60 * 1000 * 14, // 14 days
+        domain: 'vercel.app',
+        path: '/',
+        maxAge: 24 * 60 * 60 * 1000 * 30,
       });
 
       return res.json({ message: 'Login successful' });
