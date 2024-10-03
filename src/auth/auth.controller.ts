@@ -30,6 +30,7 @@ export class AuthController {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
+        domain: '.vercel.app',
         maxAge: 24 * 60 * 60 * 1000 * 14, // 14 days
       });
 
@@ -56,7 +57,7 @@ export class AuthController {
       res.clearCookie('authToken', {
         httpOnly: true,
         secure: true,
-        sameSite: 'strict',
+        sameSite: 'none',
         path: '/',
       });
 
