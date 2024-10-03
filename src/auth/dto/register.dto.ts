@@ -4,8 +4,10 @@ import {
   IsEnum,
   MinLength,
   Matches,
+  IsEmail,
 } from 'class-validator';
 import { Gender } from '../../types/user';
+import { IsValidAge } from '../../validators/birthday';
 
 export class RegisterDto {
   @IsString()
@@ -16,7 +18,7 @@ export class RegisterDto {
   @IsNotEmpty()
   last_name: string;
 
-  @IsString()
+  @IsEmail()
   @IsNotEmpty()
   email: string;
 
@@ -34,4 +36,7 @@ export class RegisterDto {
 
   @IsEnum(Gender)
   gender: Gender;
+
+  @IsValidAge()
+  birth_date: Date;
 }
